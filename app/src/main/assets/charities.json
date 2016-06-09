@@ -1,0 +1,57 @@
+[
+  {
+    "id" : 0,
+    "name": "Foundation for the Better Life of Children",
+    "logo_url": "http://www.fblcthai.org/images/logo/logoFBLC.png"
+  },
+  {
+    "id" : 1,
+    "name": "Rabbit in the Moon Foundation",
+    "logo_url": "http://cdn.shopify.com/s/files/1/0510/4905/t/4/assets/logo.png"
+  },
+  {
+    "id" : 2,
+    "name": "World Vision",
+    "logo_url": "http://2016.imoot.org/pluginfile.php/72/mod_page/content/48/World-Vision-Logo-2.png"
+  },
+  {
+    "id" : 3,
+    "name": "Makhampom",
+    "logo_url": "https://5river.files.wordpress.com/2013/03/makhampom.gif"
+  },
+  {
+    "id" : 4,
+    "name": "Wild life Rescue Foundation",
+    "logo_url": "http://www.sandytoesandpopsicles.com/wp-content/uploads/2012/05/WildLifeRescue_Discovery+Science+Center1.jpg"
+  },
+  {
+    "id" : 5,
+    "name": "Kru Ban Nok",
+    "logo_url": "http://bannok.com/volunteers/wp-content/uploads/2014/07/1logobn.png"
+  },
+  {
+    "id" : 6,
+    "name": "Duang Prateep Foundation",
+    "logo_url": "http://www.jobmarket.co.th/images/employer_images/logo_2154.jpg"
+  },
+  {
+    "id" : 7,
+    "name": "Habitat for Humanity Thailand",
+    "logo_url": "http://www.adamandlianne.com/uploads/2/2/1/6/2216267/3231127.gif"
+  },
+  {
+    "id" : 8,
+    "name": "Operation Blessing Thailand",
+    "logo_url": "http://www.ob.org/wp-content/uploads/2014/04/WhereWeWork.png"
+  },
+  {
+    "id" : 9,
+    "name": "GreenPeace Southeast Asia",
+    "logo_url": "http://vignette1.wikia.nocookie.net/conworld/images/9/92/Greenpeace-logo.gif/revision/latest?cb=20131029090911"
+  },
+  {
+    "id" : 10,
+    "name": "Seub Nakhasathien Foundation",
+    "logo_url": "http://4.bp.blogspot.com/_tF_DyjQ-CPA/TCHVjkwucdI/AAAAAAAAB9g/H3FQkIlfquo/s1600/sueb05.jpg"
+  }
+]
