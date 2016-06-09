@@ -18,6 +18,8 @@ import trikita.anvil.support.v4.Supportv4DSL.nestedScrollView
 
 class TumboonDetailView(context: Context) : RenderableView(context) {
 
+    var onFabClick: ((View) -> Unit)? = null
+
     var name = ""
     var logoUrl = ""
 
@@ -57,6 +59,7 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
                 linearLayout {
                     orientation(LinearLayout.VERTICAL)
                     gravity(CENTER_HORIZONTAL)
+                    padding(dip(8))
 
                     imageView {
                         mediumSizeLogo()
@@ -79,9 +82,15 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
                         space {
                             size(dip(16), MATCH)
                         }
-                        twoTextVertical("Amount", "3,485")
+                        twoTextVertical("Needed Amount", "3,485")
 
                         gravity(CENTER_HORIZONTAL)
+                    }
+
+                    textView {
+                        titleTextView()
+                        margin(dip(8))
+                        text(R.string.large_text)
                     }
                 }
             }
@@ -93,10 +102,14 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
 
                 val fab = Anvil.currentView<FloatingActionButton>()
                 val p = fab.layoutParams as CoordinatorLayout.LayoutParams
-                p.anchorId = R.id.detail_content_scroll
+                p.anchorId = R.id.detail_header_app_bar
                 p.anchorGravity = Gravity.BOTTOM or Gravity.END
                 p.behavior = ScrollAwareBehavior()
                 fab.layoutParams = p
+
+                onClick {
+                    onFabClick?.invoke(it)
+                }
             }
         }
     }

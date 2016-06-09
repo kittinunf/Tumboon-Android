@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 23
@@ -32,12 +33,29 @@ dependencies {
             "co.trikita:anvil-support-v4:$anvilVersion",
             "co.trikita:anvil-design:$anvilVersion",
             "com.squareup.picasso:picasso:$picassoVersion",
+            "com.github.dbachelder:creditcardentry:$creditCardEntryVersion",
+            "com.github.kittinunf.fuel:fuel-android:$fuelVersion",
+            "com.github.kittinunf.fuel:fuel-rxjava:$fuelVersion",
+            "io.reactivex:rxandroid:1.2.0"
     )
 
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:23.4.0'
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
 repositories {
     mavenCentral()
+
+    maven { url "https://jitpack.io" }
 }

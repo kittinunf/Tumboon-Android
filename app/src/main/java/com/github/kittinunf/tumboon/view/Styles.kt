@@ -72,13 +72,15 @@ fun twoTextVertical(text1: CharSequence, text2: CharSequence) = {
         textView {
             size(WRAP, WRAP)
             text(text1)
-            titleTextView()
+            margin(dip(8))
+            textSize(sip(18).toFloat())
         }
 
         textView {
             size(WRAP, WRAP)
             text(text2)
-            titleTextView()
+            margin(dip(8))
+            textSize(sip(18).toFloat())
         }
 
         gravity(CENTER)
