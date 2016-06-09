@@ -9,7 +9,7 @@ import trikita.anvil.RenderableView
 import trikita.anvil.recyclerview.v7.RecyclerViewv7DSL.*
 import trikita.anvil.BaseDSL.R as resource
 
-class MainView(context: Context) : RenderableView(context) {
+class TumboonListView(context: Context) : RenderableView(context) {
 
     var onItemClick: ((Int) -> Unit)? = null
 
@@ -27,7 +27,6 @@ class MainView(context: Context) : RenderableView(context) {
         }
     }
 
-
     fun itemLayout(onClick: ((Int) -> Unit)? = null): (Int, Tumboon.TumboonItem) -> Unit {
         return { index, item ->
             relativeLayout {
@@ -43,6 +42,7 @@ class MainView(context: Context) : RenderableView(context) {
                 }
 
                 textView {
+                    id(R.id.main_recycler_item_title)
                     headLineTextView()
                     text(item.name)
                     toRightOf(R.id.main_recycler_item_image)
@@ -50,7 +50,7 @@ class MainView(context: Context) : RenderableView(context) {
                 }
 
                 view {
-                    lineView(context, R.color.material_grey_300)
+                    lineView(context, R.color.material_grey_100)
                     alignParentBottom()
                 }
 

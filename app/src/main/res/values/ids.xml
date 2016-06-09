@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="main_recycler_item_image" type="id"/>
+    <item name="main_recycler_item_title" type="id"/>
+
+    <item name="detail_header_app_bar" type="id"/>
+    <item name="detail_content_scroll" type="id"/>
 </resources>

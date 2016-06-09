@@ -16,6 +16,8 @@ object Tumboon {
         items += data
     }
 
+    operator fun get(index: Int): TumboonItem = items[index]
+
     data class TumboonItem(val id: Int, val name: String, val logoUrl: String) {
         companion object {
             fun init(j: JSONObject): Tumboon.TumboonItem {

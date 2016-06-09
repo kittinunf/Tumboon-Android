@@ -29,10 +29,13 @@ dependencies {
             "co.trikita:anvil-sdk15:$anvilVersion",
             "co.trikita:anvil-appcompat-v7:$anvilVersion",
             "co.trikita:anvil-recyclerview-v7:$anvilVersion",
+            "co.trikita:anvil-support-v4:$anvilVersion",
+            "co.trikita:anvil-design:$anvilVersion",
             "com.squareup.picasso:picasso:$picassoVersion",
     )
 
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:23.4.0'
 }
 
 repositories {
