@@ -38,3 +38,8 @@ fun omiseCharge(amount: String, cardId: String): Observable<String> {
             .authenticate(omiseSKey, "").rx_string()
 }
 
+fun omiseProcessError(rawData: String): String {
+    val json = JSONObject(rawData)
+    return json.getString("message")?.replace("2000", "20.00") ?: "Something wrong, please try again later."
+}
+

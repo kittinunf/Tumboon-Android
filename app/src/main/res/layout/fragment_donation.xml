@@ -15,6 +15,15 @@
         android:textSize="18sp"
         android:text="Amount"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:minWidth="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp"
+        android:text="(Must be at least 20 bath in amount)"/>
+
     <EditText
         android:id="@+id/donationAmountEditText"
         android:layout_width="wrap_content"

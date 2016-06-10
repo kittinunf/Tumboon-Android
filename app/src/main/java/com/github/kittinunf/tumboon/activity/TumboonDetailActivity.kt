@@ -1,14 +1,18 @@
 package com.github.kittinunf.tumboon.activity
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.devmarvel.creditcardentry.library.CreditCard
+import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.tumboon.fragment.DonationDialogFragment
 import com.github.kittinunf.tumboon.util.omiseCharge
 import com.github.kittinunf.tumboon.util.omiseGetToken
+import com.github.kittinunf.tumboon.util.omiseProcessError
 import com.github.kittinunf.tumboon.view.TumboonDetailView
 import rx.android.schedulers.AndroidSchedulers
+import java.nio.charset.Charset
 
 class TumboonDetailActivity : AppCompatActivity(), DonationDialogFragment.DonationResultListener {
 
@@ -31,9 +35,7 @@ class TumboonDetailActivity : AppCompatActivity(), DonationDialogFragment.Donati
             view.name = name
             view.logoUrl = logoUrl
             view.onFabClick = {
-                val f = DonationDialogFragment.newInstance(tumboonItemId)
-                f.listener = this@TumboonDetailActivity
-                f.show(supportFragmentManager, "fragment_donation")
+                showDonationDialog()
             }
             setContentView(view)
         }
@@ -52,8 +54,28 @@ class TumboonDetailActivity : AppCompatActivity(), DonationDialogFragment.Donati
         tokenAndCharges.observeOn(AndroidSchedulers.mainThread()).subscribe({
             Toast.makeText(this, "Your donation is successful!", Toast.LENGTH_SHORT).show()
         }, {
-            Toast.makeText(this, "There is an error processing your donation", Toast.LENGTH_SHORT).show()
+            val error = it as FuelError
+            AlertDialog.Builder(this@TumboonDetailActivity)
+                    .setTitle("Error")
+                    .setMessage("There is an error processing your donation, reason: ${omiseProcessError(error.errorData.toString(Charset.defaultCharset()))}")
+                    .setPositiveButton("Try Again") { dialog, which ->
+                        showDonationDialog(donatorName, creditCardInfo)
+                    }
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show()
         })
+    }
+
+    fun showDonationDialog() {
+        DonationDialogFragment.newInstance(tumboonItemId).apply {
+            listener = this@TumboonDetailActivity
+        }.show(supportFragmentManager, "fragment_donation")
+    }
+
+    fun showDonationDialog(donatorName: String, creditCardInfo: CreditCard) {
+        DonationDialogFragment.newInstance(tumboonItemId, donatorName, creditCardInfo).apply {
+            listener = this@TumboonDetailActivity
+        }.show(supportFragmentManager, "fragment_donation")
     }
 
 }

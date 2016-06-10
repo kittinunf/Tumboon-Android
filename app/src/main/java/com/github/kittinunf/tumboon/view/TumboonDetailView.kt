@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.content.ContextCompat
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -71,8 +72,8 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
 
                     textView {
                         headLineTextView()
-                        margin(dip(8))
                         text(name)
+                        textColor(ContextCompat.getColor(context, R.color.colorAccent))
                         gravity(CENTER_HORIZONTAL)
                     }
 
@@ -82,8 +83,15 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
                         space {
                             size(dip(16), MATCH)
                         }
-                        twoTextVertical("Needed Amount", "3,485")
+                        twoTextVertical("Total Donation", "3,485")
 
+                        gravity(CENTER_HORIZONTAL)
+                    }
+
+                    textView {
+                        headLineTextView()
+                        text("Description")
+                        textColor(ContextCompat.getColor(context, R.color.colorAccent))
                         gravity(CENTER_HORIZONTAL)
                     }
 
@@ -91,6 +99,7 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
                         titleTextView()
                         margin(dip(8))
                         text(R.string.large_text)
+                        gravity(CENTER_HORIZONTAL)
                     }
                 }
             }
