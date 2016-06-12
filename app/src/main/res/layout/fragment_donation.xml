@@ -22,7 +22,7 @@
         android:layout_gravity="center"
         android:textColor="@color/colorAccent"
         android:textSize="12sp"
-        android:text="(Must be at least 20 bath in amount)"/>
+        android:text="(Must be 20 bath or more in Thai Baht)"/>
 
     <EditText
         android:id="@+id/donationAmountEditText"

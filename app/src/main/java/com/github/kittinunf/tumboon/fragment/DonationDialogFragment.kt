@@ -20,6 +20,7 @@ class DonationDialogFragment() : DialogFragment() {
         val TUMBOON_ITEM_ID = "tumboon_item_id"
         val TUMBOON_ITEM_CREDIT_CARD_INFO = "tumboon_item_credit_card_info"
         val TUMBOON_ITEM_DONATOR_NAME = "tumboon_item_donator_name"
+        val TUMBOON_ITEM_DONATION_AMOUNT = "tumboon_item_donation_amount"
 
         fun newInstance(itemId: Int): DonationDialogFragment {
             return DonationDialogFragment().apply {
@@ -29,10 +30,11 @@ class DonationDialogFragment() : DialogFragment() {
             }
         }
 
-        fun newInstance(itemId: Int, donatorName: String, creditCardInfo: CreditCard): DonationDialogFragment {
+        fun newInstance(itemId: Int, donatorName: String, amount: String, creditCardInfo: CreditCard): DonationDialogFragment {
             return DonationDialogFragment().apply {
                 arguments = Bundle().apply {
                     putShort(TUMBOON_ITEM_ID, itemId.toShort())
+                    putString(TUMBOON_ITEM_DONATION_AMOUNT, amount)
                     putString(TUMBOON_ITEM_DONATOR_NAME, donatorName)
                     putSerializable(TUMBOON_ITEM_CREDIT_CARD_INFO, creditCardInfo)
                 }
@@ -60,36 +62,38 @@ class DonationDialogFragment() : DialogFragment() {
     private fun setUp(layout: View) {
         arguments.let {
             // name
-            val donatorName = it.getString(TUMBOON_ITEM_DONATOR_NAME)
+            val donatorName = it.getString(TUMBOON_ITEM_DONATOR_NAME, "")
             layout.donationNameEditText.setText(donatorName, TextView.BufferType.NORMAL)
+
+            // amount
+            val donationAmount = it.getString(TUMBOON_ITEM_DONATION_AMOUNT, "0.00")
+            layout.donationAmountEditText.setText(java.lang.String.format("%.2f", (donationAmount.toDouble() / 100)), TextView.BufferType.NORMAL)
 
             // re-enter credit card info
             val creditCardInfo = it.getSerializable(TUMBOON_ITEM_CREDIT_CARD_INFO) as? CreditCard
 
             creditCardInfo?.let {
                 layout.donationCreditCardForm.apply {
-                    setExpDate(creditCardInfo.expDate, false)
-                    setZipCode(creditCardInfo.zipCode, false)
-                    setCardNumber(creditCardInfo.cardNumber, true)
+                    setExpDate(it.expDate, false)
+                    setZipCode(it.zipCode, false)
+                    setCardNumber(it.cardNumber, true)
                 }
             }
         }
 
         //set up to always show 2 decimal places on UI
         layout.donationAmountEditText.setOnFocusChangeListener { view, hasFocus ->
-//            if (!hasFocus) {
-                val editText = view as EditText
+            val editText = view as EditText
 
-                var modifiedInput = ""
-                val input = editText.text.toString()
-                if (input.isEmpty()) {
-                    modifiedInput = "0.00"
-                } else {
-                    val float = input.toFloat()
-                    modifiedInput = java.lang.String.format("%.2f", float)
-                }
-                editText.setText(modifiedInput, TextView.BufferType.NORMAL)
-//            }
+            val modifiedInput: String
+            val input = editText.text.toString()
+            if (input.isEmpty()) {
+                modifiedInput = "0.00"
+            } else {
+                val float = input.toFloat()
+                modifiedInput = java.lang.String.format("%.2f", float)
+            }
+            editText.setText(modifiedInput, TextView.BufferType.NORMAL)
         }
     }
 

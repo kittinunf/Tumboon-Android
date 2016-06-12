@@ -13,7 +13,7 @@ class TumboonListView(context: Context) : RenderableView(context) {
 
     var onItemClick: ((Int) -> Unit)? = null
 
-    val tumboonAdapter = RenderableRecyclerViewAdapter.withItems(Tumboon.items(), itemLayout {
+    val tumboonAdapter = RenderableRecyclerViewAdapter.withItems(Tumboon.items, itemLayout {
         onItemClick?.invoke(it)
     })
 
@@ -27,7 +27,7 @@ class TumboonListView(context: Context) : RenderableView(context) {
         }
     }
 
-    fun itemLayout(onClick: ((Int) -> Unit)? = null): (Int, Tumboon.TumboonItem) -> Unit {
+    fun itemLayout(onClick: ((Int) -> Unit)? = null): (Int, Tumboon.Charity) -> Unit {
         return { index, item ->
             relativeLayout {
                 size(MATCH, WRAP)

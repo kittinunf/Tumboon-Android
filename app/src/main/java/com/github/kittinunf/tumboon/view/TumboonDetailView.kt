@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.github.kittinunf.tumboon.R
+import com.github.kittinunf.tumboon.model.Tumboon
 import trikita.anvil.Anvil
 import trikita.anvil.DSL.*
 import trikita.anvil.RenderableView
@@ -21,10 +22,12 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
 
     var onFabClick: ((View) -> Unit)? = null
 
-    var name = ""
-    var logoUrl = ""
+    var charityId: Int = -1
 
     override fun view() {
+
+        val charity = Tumboon.fetch(charityId) ?: return
+
         coordinatorLayout {
             size(MATCH, MATCH)
             fitsSystemWindows(true)
@@ -43,7 +46,7 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
                         adjustViewBounds(true)
                         fitsSystemWindows(true)
                         scaleType(ImageView.ScaleType.CENTER_CROP)
-                        loadImageUrl(context, "http://worldvision.or.th/News&Events/images/tesco1.jpg")
+                        loadImageUrl(context, charity.coverUrl)
                     }
                 }
             }
@@ -64,26 +67,26 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
 
                     imageView {
                         mediumSizeLogo()
-                        if (logoUrl.isNotBlank()) {
-                            loadImageUrl(context, logoUrl)
+                        if (charity.logoUrl.isNotBlank()) {
+                            loadImageUrl(context, charity.logoUrl)
                         }
                         margin(dip(8))
                     }
 
                     textView {
                         headLineTextView()
-                        text(name)
+                        text(charity.name)
                         textColor(ContextCompat.getColor(context, R.color.colorAccent))
                         gravity(CENTER_HORIZONTAL)
                     }
 
                     linearLayout {
                         orientation(LinearLayout.HORIZONTAL)
-                        twoTextVertical("Donators", "46")
+                        twoTextVertical("Donators", charity.donationCount.toString())
                         space {
                             size(dip(16), MATCH)
                         }
-                        twoTextVertical("Total Donation", "3,485")
+                        twoTextVertical("Total Donation", java.lang.String.format("%.2f", charity.donationAmount))
 
                         gravity(CENTER_HORIZONTAL)
                     }
@@ -98,7 +101,7 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
                     textView {
                         titleTextView()
                         margin(dip(8))
-                        text(R.string.large_text)
+                        text(charity.desc)
                         gravity(CENTER_HORIZONTAL)
                     }
                 }
