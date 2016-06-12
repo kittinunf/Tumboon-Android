@@ -2,6 +2,7 @@ package com.github.kittinunf.tumboon.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.github.kittinunf.tumboon.util.tumboonGetCharities
@@ -25,6 +26,11 @@ class TumboonListActivity : AppCompatActivity() {
             mainView.items = it
         }, {
             Log.e(javaClass.simpleName, it.toString())
+            AlertDialog.Builder(this@TumboonListActivity)
+                    .setTitle("Error")
+                    .setMessage("There is something wrong, please try again later")
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show()
         })
     }
 

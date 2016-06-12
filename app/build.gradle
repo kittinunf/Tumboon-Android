@@ -36,6 +36,7 @@ dependencies {
             "com.github.dbachelder:creditcardentry:$creditCardEntryVersion",
             "com.github.kittinunf.fuel:fuel-android:$fuelVersion",
             "com.github.kittinunf.fuel:fuel-rxjava:$fuelVersion",
+            "com.github.kittinunf.fuse:fuse:$fuseVersion",
             "io.reactivex:rxandroid:$rxAndroidVersion"
     )
 

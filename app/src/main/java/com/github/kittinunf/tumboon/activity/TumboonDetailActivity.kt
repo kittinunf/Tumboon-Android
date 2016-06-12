@@ -44,6 +44,11 @@ class TumboonDetailActivity : AppCompatActivity(), DonationDialogFragment.Donati
             view.item = it
         }, {
             Log.e(javaClass.simpleName, it.toString())
+            AlertDialog.Builder(this@TumboonDetailActivity)
+                    .setTitle("Error")
+                    .setMessage("There is something wrong, please try again later")
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show()
         })
     }
 
