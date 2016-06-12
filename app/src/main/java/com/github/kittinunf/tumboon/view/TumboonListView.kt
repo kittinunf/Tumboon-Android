@@ -2,32 +2,39 @@ package com.github.kittinunf.tumboon.view
 
 import android.content.Context
 import com.github.kittinunf.tumboon.R
-import com.github.kittinunf.tumboon.model.Tumboon
+import com.github.kittinunf.tumboon.model.Charity
+import trikita.anvil.Anvil
 import trikita.anvil.DSL.*
 import trikita.anvil.RenderableRecyclerViewAdapter
 import trikita.anvil.RenderableView
 import trikita.anvil.recyclerview.v7.RecyclerViewv7DSL.*
+import kotlin.properties.Delegates
 import trikita.anvil.BaseDSL.R as resource
 
 class TumboonListView(context: Context) : RenderableView(context) {
 
     var onItemClick: ((Int) -> Unit)? = null
 
-    val tumboonAdapter = RenderableRecyclerViewAdapter.withItems(Tumboon.items, itemLayout {
-        onItemClick?.invoke(it)
-    })
+    var items by Delegates.observable(emptyList<Charity>()) { meta, oldValue, newValue ->
+        // re-render view
+        Anvil.render()
+    }
 
     override fun view() {
-        tumboonAdapter.notifyDataSetChanged()
+
+        val charities = items
+        val listAdapter = RenderableRecyclerViewAdapter.withItems(charities, itemLayout {
+            onItemClick?.invoke(it)
+        })
 
         recyclerView {
             size(MATCH, MATCH)
             linearLayoutManager()
-            adapter(tumboonAdapter)
+            adapter(listAdapter)
         }
     }
 
-    fun itemLayout(onClick: ((Int) -> Unit)? = null): (Int, Tumboon.Charity) -> Unit {
+    fun itemLayout(onClick: ((Int) -> Unit)? = null): (Int, Charity) -> Unit {
         return { index, item ->
             relativeLayout {
                 size(MATCH, WRAP)
@@ -55,7 +62,7 @@ class TumboonListView(context: Context) : RenderableView(context) {
                 }
 
                 onClick {
-                    onClick?.invoke(index)
+                    onClick?.invoke(item.id)
                 }
             }
         }

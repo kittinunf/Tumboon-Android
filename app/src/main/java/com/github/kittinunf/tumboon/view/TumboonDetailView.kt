@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.github.kittinunf.tumboon.R
-import com.github.kittinunf.tumboon.model.Tumboon
+import com.github.kittinunf.tumboon.model.Charity
 import trikita.anvil.Anvil
 import trikita.anvil.DSL.*
 import trikita.anvil.RenderableView
@@ -22,11 +22,17 @@ class TumboonDetailView(context: Context) : RenderableView(context) {
 
     var onFabClick: ((View) -> Unit)? = null
 
+    var item: Charity? = null
+        set(value) {
+            field = value
+            Anvil.render()
+        }
+
     var charityId: Int = -1
 
     override fun view() {
 
-        val charity = Tumboon.fetch(charityId) ?: return
+        val charity = item ?: return
 
         coordinatorLayout {
             size(MATCH, MATCH)

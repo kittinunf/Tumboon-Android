@@ -10,7 +10,7 @@ import rx.Observable
 import java.nio.charset.Charset
 
 private val omisePKey = "pkey_test_54ab0dh16q70kne0f4g"
-private val omiseSKey = "<S Key is stored safely in server>"
+private val omiseSKey = "<S Key is stored safely in tumboon server>"
 
 fun omiseGetToken(name: String, cardNumber: String, expMonth: Int, expYear: Int, zip: String, securityCode: String): Observable<String> {
     return "https://vault.omise.co/tokens".httpPost(
@@ -31,7 +31,7 @@ fun omiseGetToken(name: String, cardNumber: String, expMonth: Int, expYear: Int,
 }
 
 // this function called should not be done at application level, as API Key can be exposed by decomplilation of .apk
-fun omiseCharge(amount: String, cardId: String): Observable<String> {
+fun omisePostCharge(amount: String, cardId: String): Observable<String> {
     return "https://api.omise.co/charges".httpPost(
             listOf("amount" to amount,
                     "currency" to "thb",
@@ -39,8 +39,4 @@ fun omiseCharge(amount: String, cardId: String): Observable<String> {
             .authenticate(omiseSKey, "").rx_string()
 }
 
-fun omiseProcessError(rawData: String): String {
-    val json = JSONObject(rawData)
-    return json.getString("message")?.replace("2000", "20.00") ?: "Something wrong, please try again later."
-}
 
